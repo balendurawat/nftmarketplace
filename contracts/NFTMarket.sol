@@ -1,15 +1,14 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.17;
+pragma solidity ^0.8.0;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract NFTMarket is ERC721 {
+contract NFTMarket is ERC721URIStorage {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIDs;
 
-    constructor() public ERC721("Balendu NFT", "BNF") {}
-
+    constructor() ERC721("Balendu NFT", "BNF") {}
 
     function createNFT(string calldata tokenURI) public returns (uint256) {
         _tokenIDs.increment();
@@ -17,5 +16,6 @@ contract NFTMarket is ERC721 {
         _safeMint(msg.sender, currentID);
         _setTokenURI(currentID, tokenURI);
         return currentID;
+        
     }
 }
